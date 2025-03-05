@@ -79,13 +79,11 @@ python app.py
 
 User output example screenshot:
 
-![Screenshot1](Images/Conversation-1.png)
+![Conversation-1](Images/Conversation-1.png)
 
 
-![Screenshot2](Images/Conversation-2.png)
+![Conversation-2](Images/Conversation-2.png)
 
 
-![Screenshot3](Images/Conversation-3.png)
-
-
+![Conversation-3](Images/Conversation-3.png)
 
