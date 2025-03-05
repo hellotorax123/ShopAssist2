@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ShopAssist 2</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="outercontainer">
+        <div class="header">
+            <h1 class="title">
+                <i class="fas fa-robot assistant-icon"></i> ShopAssist 2
+            </h1>
+        </div>
+        <div class="conversationcontainer" id="chatcontainer">
+            {% for entry in name_xyz %}
+            <div class="{% if entry.bot %}bot{% else %}user{% endif %}">
+                {% if entry.bot %}
+                    <i class="fas fa-robot bot-icon"></i>
+                    <div class="message-content">
+                        {{ entry.bot | safe }}
+                        {% if entry.bot is string and "Image URL:" in entry.bot %}
+                            {% set lines = entry.bot.split('\n') %}
+                            {% for line in lines %}
+                                {% if "Image URL:" in line %}
+                                    {% set url_start = line.find('href="') + 6 %}
+                                    {% set url_end = line.find('"', url_start) %}
+                                    {% set url = line[url_start:url_end] %}
+                                    <div class="url-container">
+                                        <a href="{{ url }}" target="_blank" class="image-url">[Click here for laptop image]</a>
+                                    </div>
+                                    <img src="{{ url }}" alt="Laptop Image" class="laptop-image" onerror="this.style.display='none'">
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="message-content">{{ entry.user }}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="inputcontainer">
+            <form action="{{ url_for('invite') }}" method="POST" class="inputform" id="chat-form">
+                <input type="text" name="user_input_message" class="inputtextbox" placeholder="Ask ShopAssist 2..." required id="user-input">
+                <button type="submit" class="submitbutton"></button>
+            </form>
+            <form action="{{ url_for('end_conv') }}" method="GET" class="endform">
+                <button type="submit" class="endbutton">End Conversation</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        // Scroll to bottom function
+        function scrollToBottom() {
+            var chatContainer = document.getElementById('chatcontainer');
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Initial load
+        window.onload = function() {
+            scrollToBottom();
+        };
+
+        // Handle form submission
+        document.getElementById('chat-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent immediate submission
+
+            // Get user input
+            var userInput = document.getElementById('user-input').value;
+            if (!userInput.trim()) return; // Ignore empty input
+
+            // Append user message
+            var userDiv = document.createElement('div');
+            userDiv.className = 'user';
+            userDiv.innerHTML = '<div class="message-content">' + userInput + '</div>';
+            document.getElementById('chatcontainer').appendChild(userDiv);
+
+            // Append typing indicator below user message
+            var typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.innerHTML = '<span></span><span></span><span></span>';
+            document.getElementById('chatcontainer').appendChild(typingDiv);
+
+            scrollToBottom();
+
+            // Submit form after delay
+            setTimeout(function() {
+                document.getElementById('chat-form').submit();
+            }, 1500); // 1.5s delay for typing effect
+        });
+    </script>
+</body>
+</html>

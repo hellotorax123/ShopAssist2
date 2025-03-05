@@ -1,0 +1,238 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container Styles */
+.outercontainer {
+    width: 90%;
+    max-width: 600px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+/* Header Styles */
+.header {
+    background: linear-gradient(135deg, #6b7280, #9ca3af);
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    color: #ffffff;
+    margin: 0;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.assistant-icon {
+    margin-right: 10px;
+    font-size: 28px;
+    color: #ffffff;
+}
+
+/* Conversation Styles */
+.conversationcontainer {
+    padding: 20px;
+    height: 400px;
+    background-color: #f9fafb;
+    overflow-y: auto;
+    border-bottom: 1px solid #e5e7eb;
+    position: relative;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.user, .bot, .typing-indicator {
+    margin: 15px 0;
+    padding: 12px;
+    border-radius: 15px;
+    max-width: 80%;
+    clear: both;
+    word-wrap: break-word;
+    display: flex;
+    align-items: flex-start;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.user {
+    background-color: #10b981;
+    color: #ffffff;
+    float: right;
+}
+
+.bot {
+    background-color: #8b5cf6;
+    color: #ffffff;
+    float: left;
+    overflow-x: hidden; /* Prevent horizontal overflow in bot messages */
+}
+
+.bot-icon {
+    margin-right: 10px;
+    font-size: 18px;
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+.message-content {
+    flex: 1;
+    overflow-wrap: break-word; /* Wrap text within the message content */
+    overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+.url-container {
+    margin: 5px 0;
+    overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+.image-url {
+    word-break: break-all; /* Force long URLs to wrap */
+    overflow-wrap: break-word; /* Alternative for older browsers */
+    white-space: normal; /* Ensure text wraps normally */
+    display: block;
+    color: #ffffff;
+    text-decoration: underline;
+    max-width: 100%; /* Ensure URL fits within container */
+    overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+.laptop-image {
+    width: 150px !important; /* Strict enforcement of small size */
+    height: 150px !important; /* Strict enforcement of small size */
+    object-fit: contain; /* Maintain aspect ratio, no distortion */
+    margin: 10px 0;
+    display: block;
+    border-radius: 10px;
+    max-width: 100% !important; /* Ensure image doesn’t exceed container */
+    max-height: 100% !important; /* Ensure image doesn’t exceed container */
+}
+
+.bot a {
+    word-break: break-all;
+    overflow-wrap: break-word;
+    white-space: normal;
+    display: block;
+    margin: 5px 0;
+    color: #ffffff;
+    text-decoration: underline;
+    max-width: 100%; /* Ensure URL fits within container */
+    overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+/* Typing Indicator */
+.typing-indicator {
+    background-color: #8b5cf6;
+    color: #ffffff;
+    float: left;
+    margin-top: 5px; /* Small gap below user message */
+    overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+.typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 2px;
+    animation: bounce 0.6s infinite alternate;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
+}
+
+/* Input Container Styles */
+.inputcontainer {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
+}
+
+/* Form Styles */
+.inputform, .endform {
+    display: flex;
+    width: 100%;
+    margin: 8px 0;
+}
+
+.inputtextbox {
+    width: 85%;
+    padding: 12px;
+    border: 2px solid #d1d5db;
+    border-radius: 25px;
+    margin-right: 10px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.inputtextbox:focus {
+    border-color: #8b5cf6;
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.3);
+}
+
+.submitbutton {
+    width: 40px;
+    height: 40px;
+    background: url('/static/send-icon.png') no-repeat center center;
+    background-size: cover;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+}
+
+.submitbutton:hover {
+    transform: scale(1.1);
+}
+
+.endbutton {
+    background-color: #f43f5e;
+    color: #ffffff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    outline: none;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.endbutton:hover {
+    background-color: #e11d48;
+}
+
+.endbutton:focus, .submitbutton:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
